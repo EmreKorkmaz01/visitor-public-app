@@ -1,0 +1,74 @@
+_schema-version: "3.2"
+ID: redstar-vm-public-ui
+version: 1.0.12
+
+modules:
+  - name: redstar-vm-public-ui-destination-content
+    type: com.sap.application.content
+    requires:
+      - name: redstar-vm-public-ui-destination
+        parameters:
+          content-target: true
+      - name: redstar-vm-public-ui-html5-host
+        parameters:
+          service-key:
+            name: redstar-vm-public-ui-html5-host-key
+    parameters:
+      content:
+        subaccount:
+          destinations:
+            - Name: redstar_vm_public_html5_host
+              ServiceInstanceName: redstar-vm-public-html5-repo-host
+              ServiceKeyName: redstar-vm-public-ui-html5-host-key
+              sap.cloud.service: redstar.vm.public
+          existing_destinations_policy: update
+    build-parameters:
+      no-source: true
+
+  - name: redstar-vm-public-ui-app-content
+    type: com.sap.application.content
+    path: .
+    requires:
+      - name: redstar-vm-public-ui-html5-host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: resources
+      requires:
+        - name: redstar-vm-public-ui-html5
+          artifacts:
+            - redstar-vm-public.zip
+          target-path: resources/
+
+  - name: redstar-vm-public-ui-html5
+    type: html5
+    path: .
+    build-parameters:
+      builder: custom
+      commands:
+        - npm ci --prefer-offline --no-audit --no-fund
+        - npm run build:cf
+      build-result: dist
+      supported-platforms: []
+
+resources:
+  - name: redstar-vm-public-ui-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite
+      service-name: redstar-vm-public-ui-destination-service
+      config:
+        HTML5Runtime_enabled: true
+        version: 1.0.12
+
+  - name: redstar-vm-public-ui-html5-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-host
+      service-name: redstar-vm-public-html5-repo-host
+
+parameters:
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true

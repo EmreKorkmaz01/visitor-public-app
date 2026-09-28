@@ -1,0 +1,10 @@
+﻿node_modules/
+dist/
+mta_archives/
+resources/
+.*_mta_build_tmp/
+Makefile_*.mta
+*.log
+.env
+.env.local
+.DS_Store

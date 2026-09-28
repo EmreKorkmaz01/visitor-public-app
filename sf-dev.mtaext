@@ -1,0 +1,20 @@
+_schema-version: "3.2"
+ID: redstar-vm-public-ui-sf-dev
+extends: redstar-vm-public-ui
+
+resources:
+  - name: redstar-vm-public-ui-destination
+    parameters:
+      config:
+        HTML5Runtime_enabled: true
+        version: 1.0.3
+        init_data:
+          subaccount:
+            destinations:
+              - Name: redstar-vm-cap-public
+                Type: HTTP
+                ProxyType: Internet
+                Authentication: NoAuthentication
+                URL: https://redstar-havac-l-k-hizmetleri-a-s-sf-dev-ra7s9r53-sf-dev7b1b9d60.cfapps.eu10-005.hana.ondemand.com
+                HTML5.DynamicDestination: true
+            existing_destinations_policy: update

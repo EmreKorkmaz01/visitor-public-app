@@ -1,0 +1,36 @@
+{
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "redstar.vm.public",
+    "type": "application",
+    "title": "Ziyaretçi Kaydı",
+    "description": "Redstar Aviation ziyaretçi kayıt uygulaması",
+    "applicationVersion": {
+      "version": "1.0.12"
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "redstar-vm-register": {
+          "semanticObject": "RedstarVMRegister",
+          "action": "display",
+          "title": "Ziyaretçi Kaydı",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "redstar.vm.public"
+  },
+  "sap.ui": {
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  }
+}
