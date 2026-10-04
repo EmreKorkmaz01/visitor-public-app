@@ -1,6 +1,6 @@
 _schema-version: "3.2"
 ID: redstar-vm-public-ui
-version: 1.0.12
+version: 1.0.13
 
 modules:
   - name: redstar-vm-public-ui-destination-content
@@ -60,7 +60,7 @@ resources:
       service-name: redstar-vm-public-ui-destination-service
       config:
         HTML5Runtime_enabled: true
-        version: 1.0.12
+        version: 1.0.13
 
   - name: redstar-vm-public-ui-html5-host
     type: org.cloudfoundry.managed-service
