@@ -25,6 +25,22 @@ export default {
     presentation: 'Sunum',
     video: 'Emniyet Videosu',
     consent: 'Aydınlatma Metni',
+    items: 'Malzeme Listesi',
+  },
+
+    items: {
+    intro     : 'Ziyaretiniz sırasında yanınızda getireceğiniz alet, ekipman ve sarf malzemelerini listeleyin. Getireceğiniz bir şey yoksa bu adımı boş bırakıp devam edebilirsiniz.',
+    equipment : 'Alet / Ekipman Listesi',
+    consumable: 'Sarf (Kullanılacak) Malzeme Listesi',
+    empty     : 'Henüz satır eklenmedi.',
+    colOrder  : 'Sıra',
+    colName   : 'Malzeme Adı',
+    colQty    : 'Adet',
+    colUnit   : 'Birim',
+    namePh    : 'Örn. Matkap',
+    unitPh    : 'adet',
+    add       : '+ Satır ekle',
+    remove    : 'Satırı sil',
   },
   
 consent: {

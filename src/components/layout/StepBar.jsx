@@ -7,6 +7,7 @@ export default function StepBar({ currentStep, skipVideo = false }) {
     t('steps.personal'),
     t('steps.documents'),
     t('steps.vehicle'),
+    t('steps.items'),
     t('steps.consent'),
     t('steps.video'),
   ]

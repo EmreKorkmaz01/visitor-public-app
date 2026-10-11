@@ -1,6 +1,14 @@
+import { useTranslation } from '../../../i18n/useTranslation'
+
 const EMPTY_ROW = () => ({ id: crypto.randomUUID(), itemName: '', quantity: '', unit: '' })
 
-function ItemTable({ title, rows, onChange, onAdd, onRemove }) {
+const inputStyle = {
+  height: '36px', width: '100%', boxSizing: 'border-box',
+  padding: '0 10px', borderRadius: '8px', border: '1px solid #e0e0e0',
+  fontSize: '13px', fontFamily: 'inherit', color: '#212121', outline: 'none',
+}
+
+function ItemTable({ title, rows, onChange, onAdd, onRemove, t }) {
   return (
     <div style={{
       background: '#fff', borderRadius: '12px', border: '1px solid #e0e0e0',
@@ -13,7 +21,7 @@ function ItemTable({ title, rows, onChange, onAdd, onRemove }) {
       <div style={{ padding: '12px 16px' }}>
         {rows.length === 0 && (
           <p style={{ margin: '8px 0 12px', fontSize: '12px', color: '#9e9e9e' }}>
-            Henüz satır eklenmedi.
+            {t('items.empty')}
           </p>
         )}
 
@@ -23,7 +31,11 @@ function ItemTable({ title, rows, onChange, onAdd, onRemove }) {
             gap: '8px', marginBottom: '6px',
             fontSize: '11px', color: '#9e9e9e', textTransform: 'uppercase', letterSpacing: '0.05em',
           }}>
-            <span>Sıra</span><span>Malzeme Adı</span><span>Adet</span><span>Birim</span><span />
+            <span>{t('items.colOrder')}</span>
+            <span>{t('items.colName')}</span>
+            <span>{t('items.colQty')}</span>
+            <span>{t('items.colUnit')}</span>
+            <span />
           </div>
         )}
 
@@ -36,7 +48,7 @@ function ItemTable({ title, rows, onChange, onAdd, onRemove }) {
             <input
               value={row.itemName}
               onChange={(e) => onChange(row.id, 'itemName', e.target.value)}
-              placeholder="Örn. Matkap"
+              placeholder={t('items.namePh')}
               style={inputStyle}
             />
             <input
@@ -49,13 +61,13 @@ function ItemTable({ title, rows, onChange, onAdd, onRemove }) {
             <input
               value={row.unit}
               onChange={(e) => onChange(row.id, 'unit', e.target.value)}
-              placeholder="adet"
+              placeholder={t('items.unitPh')}
               style={inputStyle}
             />
             <button
               type="button"
               onClick={() => onRemove(row.id)}
-              aria-label="Satırı sil"
+              aria-label={t('items.remove')}
               style={{
                 height: '32px', width: '32px', borderRadius: '8px',
                 border: '1px solid #e0e0e0', background: '#fff',
@@ -77,20 +89,16 @@ function ItemTable({ title, rows, onChange, onAdd, onRemove }) {
             fontFamily: 'inherit', cursor: 'pointer',
           }}
         >
-          + Satır ekle
+          {t('items.add')}
         </button>
       </div>
     </div>
   )
 }
 
-const inputStyle = {
-  height: '36px', width: '100%', boxSizing: 'border-box',
-  padding: '0 10px', borderRadius: '8px', border: '1px solid #e0e0e0',
-  fontSize: '13px', fontFamily: 'inherit', color: '#212121', outline: 'none',
-}
-
 export default function ItemsStep({ equipment, consumables, onChange }) {
+  const { t } = useTranslation()
+
   const update = (type) => (id, field, value) => {
     const list = type === 'equipment' ? equipment : consumables
     onChange(type, list.map(r => r.id === id ? { ...r, [field]: value } : r))
@@ -107,23 +115,24 @@ export default function ItemsStep({ equipment, consumables, onChange }) {
   return (
     <div>
       <p style={{ margin: '0 0 16px', fontSize: '13px', color: '#757575', lineHeight: 1.6 }}>
-        Ziyaretiniz sırasında yanınızda getireceğiniz alet, ekipman ve sarf malzemelerini listeleyin.
-        Getireceğiniz bir şey yoksa bu adımı boş bırakıp devam edebilirsiniz.
+        {t('items.intro')}
       </p>
 
       <ItemTable
-        title="Alet / Ekipman Listesi"
+        title={t('items.equipment')}
         rows={equipment}
         onChange={update('equipment')}
         onAdd={add('equipment')}
         onRemove={remove('equipment')}
+        t={t}
       />
       <ItemTable
-        title="Sarf (Kullanılacak) Malzeme Listesi"
+        title={t('items.consumable')}
         rows={consumables}
         onChange={update('consumables')}
         onAdd={add('consumables')}
         onRemove={remove('consumables')}
+        t={t}
       />
     </div>
   )
