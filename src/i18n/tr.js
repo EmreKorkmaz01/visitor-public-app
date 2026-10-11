@@ -115,7 +115,7 @@ consent: {
     title  : 'Bu link geçersiz veya süresi dolmuş',
     desc   : 'Davet linki tek kullanımlıktır ve 7 gün geçerlidir.\nYeni bir davet almak için lütfen sizi davet eden kişiyle iletişime geçin.',
     contact: 'İletişim',
-    info   : 'Redstar Aviation Misafir Koordinasyonu\nvisitor@redstar.com.tr · +90 212 XXX XX XX',
+    info   : 'Redstar Aviation Misafir Koordinasyonu\nredstar.izin@redstar.com.tr',
   },
   success: {
     title  : 'Kaydınız tamamlandı',

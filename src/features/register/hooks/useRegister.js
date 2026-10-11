@@ -4,6 +4,7 @@ import {
   saveConsentStep,
   saveRegistrationStep,
   completeRegistration,
+  saveVisitItems,
 } from '../../../services/api'
 
 export default function useRegister(token, skipVideo = false) {
@@ -11,7 +12,8 @@ export default function useRegister(token, skipVideo = false) {
   const [step, setStep] = useState(1)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-
+  const [equipmentItems, setEquipmentItems] = useState([])
+  const [consumableItems, setConsumableItems] = useState([])
   const [consentForm, setConsentForm] = useState({
     kvkkAccepted: false,
     isgAccepted : false,
@@ -129,25 +131,41 @@ const validatePersonal = () => {
         })
         setStep(4)
 
-      // Step 4: Aydınlatma Metni
-    } else if (step === 4) {
-  if (!consentForm.kvkkAccepted || !consentForm.isgAccepted) {
-    setError(t('consent.bothRequired'))
-    return
-  }
-  await saveConsentStep({ token, ...consentForm })
-  if (skipVideo) {
-    await completeRegistration(token)
-    setStep(6)
-  } else {
-    setStep(5)
-  }
+      // Step 4: Malzeme Listesi (opsiyonel)
+      } else if (step === 4) {
+        const items = [
+          ...equipmentItems.map(r => ({ ...r, itemType: 'EQUIPMENT' })),
+          ...consumableItems.map(r => ({ ...r, itemType: 'CONSUMABLE' })),
+        ]
+          .filter(r => r.itemName?.trim())
+          .map(r => ({
+            itemType: r.itemType,
+            itemName: r.itemName.trim(),
+            quantity: r.quantity ? Number(String(r.quantity).replace(',', '.')) : null,
+            unit    : r.unit?.trim() || null,
+          }))
 
+        await saveVisitItems(token, items)
+        setStep(5)
 
-      // Step 5: Video — VideoStep kendi içinde tamamla çağırıyor
+      // Step 5: Aydınlatma Metni
       } else if (step === 5) {
+        if (!consentForm.kvkkAccepted || !consentForm.isgAccepted) {
+          setError(t('consent.bothRequired'))
+          return
+        }
+        await saveConsentStep({ token, ...consentForm })
+        if (skipVideo) {
+          await completeRegistration(token)
+          setStep(7)
+        } else {
+          setStep(6)
+        }
+
+      // Step 6: Video — VideoStep kendi içinde tamamla çağırıyor
+      } else if (step === 6) {
         await completeRegistration(token)
-        setStep(6)
+        setStep(7)
       }
 
     } catch (err) {
@@ -171,6 +189,10 @@ const validatePersonal = () => {
     setPersonalForm: (field, val) => setPersonalForm((p) => ({ ...p, [field]: val })),
     vehicleForm,
     setVehicleForm : (field, val) => setVehicleForm((p) => ({ ...p, [field]: val })),
+    equipmentItems,
+    consumableItems,
+    setItems: (type, rows) =>
+      type === 'equipment' ? setEquipmentItems(rows) : setConsumableItems(rows),
     personalErrors,
     prefill,
     nextStep,

@@ -64,4 +64,9 @@ export const fetchPurposeConfigs = async () => {
   return res.data.value
 }
 
+export const saveVisitItems = async (token, items) => {
+  const res = await api.post('/saveVisitItems', { token, items })
+  return res.data.value
+}
+
 export default api

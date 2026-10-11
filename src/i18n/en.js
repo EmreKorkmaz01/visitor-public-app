@@ -115,7 +115,7 @@ export default {
     title  : 'This link is invalid or has expired',
     desc   : 'Invitation links are single-use and valid for 7 days.\nPlease contact the person who invited you to request a new invitation.',
     contact: 'Contact',
-    info   : 'Redstar Aviation Guest Coordination\nvisitor@redstar.com.tr · +90 212 XXX XX XX',
+    info   : 'Redstar Aviation Visitor Coordination\nredstar.izin@redstar.com.tr',
   },
   success: {
     title  : 'Registration complete',

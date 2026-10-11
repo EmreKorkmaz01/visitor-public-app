@@ -16,7 +16,7 @@ import SuccessScreen from './SuccessScreen'
 
 import { validateToken, fetchPurposeConfigs } from '../../../services/api'
 import useRegister from '../hooks/useRegister'
-
+import ItemsStep from './ItemsStep'
 export default function RegisterPage() {
   const { token } = useParams()
   const { t } = useTranslation()
@@ -26,16 +26,17 @@ export default function RegisterPage() {
   const [visitInfo, setVisitInfo] = useState(null)
   const [purposeLabel, setPurposeLabel] = useState(null)
   const skipVideo = visitInfo?.status === 'DOCS_REJECTED'
-  const totalSteps = skipVideo ? 4 : 5
-  const {
+  const totalSteps = skipVideo ? 5 : 6
+    const {
     step, loading, error,
     consentForm, setConsentForm,
     personalForm, setPersonalForm,
     vehicleForm, setVehicleForm,
+    equipmentItems, consumableItems, setItems,
     personalErrors,
     prefill,
     nextStep, prevStep,
-} = useRegister(token, skipVideo)
+  } = useRegister(token, skipVideo)
 
   useEffect(() => {
     if (!token) {
@@ -93,8 +94,8 @@ export default function RegisterPage() {
     nextStep()
   }
 
-  const isLastStep = skipVideo ? step === 4 : step === 5
-const isDone = step === 6
+  const isLastStep = skipVideo ? step === 5 : step === 6
+  const isDone = step === 7
 
   if (tokenState === 'loading') {
     return (
@@ -182,11 +183,18 @@ const isDone = step === 6
                 <VehicleStep form={vehicleForm} onChange={setVehicleForm} />
               )}
               {step === 4 && (
+                <ItemsStep
+                  equipment={equipmentItems}
+                  consumables={consumableItems}
+                  onChange={setItems}
+                />
+              )}
+              {step === 5 && (
                 <ConsentStep form={consentForm} onChange={setConsentForm} />
               )}
-            {step === 5 && !skipVideo && (
-  <VideoStep onComplete={nextStep} />
-)}
+              {step === 6 && !skipVideo && (
+                <VideoStep onComplete={nextStep} />
+              )}
               {isDone && (
                 <SuccessScreen
                   visitDate={visitInfo?.visitDate}
@@ -194,7 +202,7 @@ const isDone = step === 6
                 />
               )}
 
-              {!isDone && step !== 5 && (
+              {!isDone && (step !== 6 || skipVideo) && (
                 <div style={{
                   display: 'flex', alignItems: 'center',
                   justifyContent: 'space-between', marginTop: '16px',
@@ -218,7 +226,7 @@ const isDone = step === 6
                         {t('nav.back')}
                       </button>
                     )}
-                    {step === 3 && (
+                    {(step === 3 || step === 4) && (
                       <button
                         onClick={handleNext}
                         disabled={loading}
