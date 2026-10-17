@@ -1,11 +1,19 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useTranslation } from '../../../i18n/useTranslation'
 
 export default function VideoStep({ onComplete }) {
-  const { t } = useTranslation()
+  const { t, lang } = useTranslation()
   const videoRef = useRef(null)
   const [watched, setWatched] = useState(false)
   const [progress, setProgress] = useState(0)
+
+  const videoSrc = lang === 'en' ? 'videos/safety-en.mp4' : 'videos/safety-tr.mp4'
+
+  // Dil değişirse izleme sayacı sıfırlanır — yeni dildeki videonun da izlenmesi gerekir
+  useEffect(() => {
+    setWatched(false)
+    setProgress(0)
+  }, [videoSrc])
 
   const handleTimeUpdate = () => {
     const video = videoRef.current
@@ -21,8 +29,9 @@ export default function VideoStep({ onComplete }) {
       overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.08)',
     }}>
       <video
+        key={videoSrc}
         ref={videoRef}
-        src="videos/safety.mp4"
+        src={videoSrc}
         controls
         controlsList="nodownload"
         onTimeUpdate={handleTimeUpdate}
@@ -42,10 +51,7 @@ export default function VideoStep({ onComplete }) {
         alignItems: 'center', justifyContent: 'space-between',
       }}>
         <div style={{ fontSize: '12px', color: '#9e9e9e' }}>
-          {watched
-            ? '✓ Video izlendi'
-            : 'Devam etmek için videoyu izleyiniz'
-          }
+          {watched ? t('video.watched') : t('video.prompt')}
         </div>
         <button
           onClick={onComplete}
@@ -60,7 +66,7 @@ export default function VideoStep({ onComplete }) {
             transition: 'all 0.2s',
           }}
         >
-          {watched ? 'Devam Et →' : 'Videoyu izleyin'}
+          {watched ? t('video.continue') : t('video.cta')}
         </button>
       </div>
     </div>

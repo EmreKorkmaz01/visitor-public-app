@@ -1,15 +1,15 @@
 import { useTranslation } from '../../i18n/useTranslation'
 
-export default function StepBar({ currentStep, skipVideo = false }) {
+export default function StepBar({ currentStep, skipVideo = false, showItems = true }) {
   const { t } = useTranslation()
 
   const STEPS = [
     t('steps.personal'),
     t('steps.documents'),
     t('steps.vehicle'),
-    t('steps.items'),
+    ...(showItems ? [t('steps.items')] : []),
     t('steps.consent'),
-    t('steps.video'),
+    ...(skipVideo ? [] : [t('steps.video')]),
   ]
 
   return (

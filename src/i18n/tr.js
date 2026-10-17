@@ -3,6 +3,12 @@ export default {
     title: 'Ziyaretçi Kayıt Portalı',
     ssl: 'SSL güvenli',
   },
+    video: {
+    watched : '✓ Video izlendi',
+    prompt  : 'Devam etmek için videoyu izleyiniz',
+    continue: 'Devam Et →',
+    cta     : 'Videoyu izleyin',
+  },
   visit: {
     purposes: {
       BUSINESS_MEETING : 'İş Görüşmesi',
@@ -37,7 +43,7 @@ export default {
     colName   : 'Malzeme Adı',
     colQty    : 'Adet',
     colUnit   : 'Birim',
-    namePh    : 'Örn. Matkap',
+    namePh    : 'Örn. Kablo',
     unitPh    : 'adet',
     add       : '+ Satır ekle',
     remove    : 'Satırı sil',

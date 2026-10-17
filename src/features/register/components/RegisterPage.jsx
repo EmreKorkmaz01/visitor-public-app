@@ -26,7 +26,10 @@ export default function RegisterPage() {
   const [visitInfo, setVisitInfo] = useState(null)
   const [purposeLabel, setPurposeLabel] = useState(null)
   const skipVideo = visitInfo?.status === 'DOCS_REJECTED'
-  const totalSteps = skipVideo ? 5 : 6
+  const showItems = visitInfo?.requiresItems === true
+
+
+
     const {
     step, loading, error,
     consentForm, setConsentForm,
@@ -36,13 +39,12 @@ export default function RegisterPage() {
     personalErrors,
     prefill,
     nextStep, prevStep,
-  } = useRegister(token, skipVideo)
-
+  } = useRegister(token, skipVideo, showItems)
+  // Görünür adımların gerçek sırası — atlanan adımlar numaralandırmayı bozmasın
+  const visibleSteps = [1, 2, 3, ...(showItems ? [4] : []), 5, ...(skipVideo ? [] : [6])]
+  const totalSteps = visibleSteps.length
+  const currentIndex = visibleSteps.indexOf(step) + 1
   useEffect(() => {
-    if (!token) {
-      setTokenState('invalid')
-      return
-    }
 
     let cancelled = false
 
@@ -94,8 +96,8 @@ export default function RegisterPage() {
     nextStep()
   }
 
-  const isLastStep = skipVideo ? step === 5 : step === 6
-  const isDone = step === 7
+const isLastStep = skipVideo ? step === 5 : step === 6
+const isDone = step === 7
 
   if (tokenState === 'loading') {
     return (
@@ -121,7 +123,7 @@ export default function RegisterPage() {
         <div style={{ height: '4px', background: '#fce4e7' }}>
           <div style={{
             height: '100%', background: '#C8102E',
-            width: `${Math.round(((step - 1) / totalSteps) * 100)}%`,
+            width: `${Math.round(((currentIndex - 1) / totalSteps) * 100)}%`,
             transition: 'width 0.5s ease',
           }} />
         </div>
@@ -161,7 +163,7 @@ export default function RegisterPage() {
                   <p style={{ fontSize: '13px', color: '#757575', marginBottom: '24px', lineHeight: 1.6 }}>
                     {t('greeting.subtitle')}
                   </p>
-                  <StepBar currentStep={step} skipVideo={skipVideo} />
+                  <StepBar currentStep={currentIndex} skipVideo={skipVideo} showItems={showItems} />
                 </>
               )}
 
@@ -182,7 +184,7 @@ export default function RegisterPage() {
               {step === 3 && (
                 <VehicleStep form={vehicleForm} onChange={setVehicleForm} />
               )}
-              {step === 4 && (
+            {step === 4 && showItems && (
                 <ItemsStep
                   equipment={equipmentItems}
                   consumables={consumableItems}

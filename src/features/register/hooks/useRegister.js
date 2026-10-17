@@ -7,7 +7,7 @@ import {
   saveVisitItems,
 } from '../../../services/api'
 
-export default function useRegister(token, skipVideo = false) {
+export default function useRegister(token, skipVideo = false, showItems = true) {
   const { t } = useTranslation()
   const [step, setStep] = useState(1)
   const [loading, setLoading] = useState(false)
@@ -129,7 +129,7 @@ const validatePersonal = () => {
           carModel    : vehicleForm.carModel || null,
           carColor    : vehicleForm.carColor || null,
         })
-        setStep(4)
+        setStep(showItems ? 4 : 5)
 
       // Step 4: Malzeme Listesi (opsiyonel)
       } else if (step === 4) {
@@ -175,8 +175,12 @@ const validatePersonal = () => {
     }
   }
 
-  const prevStep = () => {
-    if (step > 1) setStep((s) => s - 1)
+    const prevStep = () => {
+    setStep((s) => {
+      if (s <= 1) return s
+      if (s === 5 && !showItems) return 3
+      return s - 1
+    })
   }
 
   return {

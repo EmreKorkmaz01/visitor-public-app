@@ -3,6 +3,12 @@ export default {
     title: 'Visitor Registration Portal',
     ssl  : 'SSL secured',
   },
+    video: {
+    watched : '✓ Video watched',
+    prompt  : 'Please watch the video to continue',
+    continue: 'Continue →',
+    cta     : 'Watch the video',
+  },
   visit: {
     purposes: {
       BUSINESS_MEETING : 'Business Meeting',
@@ -36,7 +42,7 @@ export default {
     colName   : 'Item Name',
     colQty    : 'Qty',
     colUnit   : 'Unit',
-    namePh    : 'e.g. Drill',
+    namePh    : 'e.g. Cable',
     unitPh    : 'pcs',
     add       : '+ Add row',
     remove    : 'Remove row',
