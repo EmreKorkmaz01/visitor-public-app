@@ -46,6 +46,12 @@ export default {
     unitPh    : 'pcs',
     add       : '+ Add row',
     remove    : 'Remove row',
+        equipmentTerm    : 'Tools and Equipment',
+    equipmentDesc    : 'Tools used to carry out the work that are not consumed and can be reused.',
+    equipmentExample : 'Examples: drill, screwdriver, pliers, hammer, ladder, measuring device.',
+    consumableTerm   : 'Consumables',
+    consumableDesc   : 'Materials consumed during the work or left in place where applied.',
+    consumableExample: 'Examples: cable, paint, drywall, screws, dowels, silicone, adhesive.',
   },
  consent: {
   kvkkTitle  : 'Personal Data Protection Notice (KVKK)',

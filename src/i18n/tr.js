@@ -47,6 +47,12 @@ export default {
     unitPh    : 'adet',
     add       : '+ Satır ekle',
     remove    : 'Satırı sil',
+        equipmentTerm    : 'Alet ve Ekipman',
+    equipmentDesc    : 'İşin yapılmasında kullanılan, tüketilmeyen ve tekrar kullanılabilen araçlardır.',
+    equipmentExample : 'Örnek: Matkap, tornavida, pense, çekiç, merdiven, ölçüm cihazı.',
+    consumableTerm   : 'Sarf Malzeme',
+    consumableDesc   : 'İş sırasında tüketilen, kullanılan veya uygulandığı yerde kalan malzemelerdir.',
+    consumableExample: 'Örnek: Kablo, boya, alçıpan, vida, dübel, silikon, yapıştırıcı.',
   },
   
 consent: {

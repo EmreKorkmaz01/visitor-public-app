@@ -6,7 +6,7 @@
     "title": "Ziyaretçi Kaydı",
     "description": "Redstar Aviation ziyaretçi kayıt uygulaması",
     "applicationVersion": {
-      "version": "1.0.15"
+      "version": "1.0.17"
     },
     "crossNavigation": {
       "inbounds": {

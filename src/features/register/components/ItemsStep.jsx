@@ -116,6 +116,46 @@ export default function ItemsStep({ equipment, consumables, onChange }) {
     <div>
       <p style={{ margin: '0 0 16px', fontSize: '13px', color: '#757575', lineHeight: 1.6 }}>
         {t('items.intro')}
+              <div
+        style={{
+          display: 'flex', gap: '10px',
+          background: '#f5f8fb', border: '1px solid #d7e3ee',
+          borderRadius: '10px', padding: '14px 16px', marginBottom: '16px',
+        }}
+      >
+        <div
+          style={{
+            width: '18px', height: '18px', flexShrink: 0, marginTop: '2px',
+            borderRadius: '50%', background: '#0070f2', color: '#fff',
+            fontSize: '11px', fontWeight: 700, lineHeight: 1,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+          }}
+        >
+          i
+        </div>
+
+        <div>
+          <p style={{ margin: 0, fontSize: '13px', fontWeight: 600, color: '#212121' }}>
+            {t('items.equipmentTerm')}
+          </p>
+          <p style={{ margin: '2px 0 0', fontSize: '12px', color: '#424242', lineHeight: 1.6 }}>
+            {t('items.equipmentDesc')}
+          </p>
+          <p style={{ margin: '2px 0 0', fontSize: '12px', color: '#757575', lineHeight: 1.6 }}>
+            {t('items.equipmentExample')}
+          </p>
+
+          <p style={{ margin: '12px 0 0', fontSize: '13px', fontWeight: 600, color: '#212121' }}>
+            {t('items.consumableTerm')}
+          </p>
+          <p style={{ margin: '2px 0 0', fontSize: '12px', color: '#424242', lineHeight: 1.6 }}>
+            {t('items.consumableDesc')}
+          </p>
+          <p style={{ margin: '2px 0 0', fontSize: '12px', color: '#757575', lineHeight: 1.6 }}>
+            {t('items.consumableExample')}
+          </p>
+        </div>
+      </div>
       </p>
 
       <ItemTable
