@@ -130,6 +130,11 @@ export default {
     required      : 'This document is required.',
     passportRequired: 'Passport upload is required for foreign nationals.',
     idRequired    : 'ID card front upload is required.',
+        passport: 'Passport',
+    id: 'ID Card',
+    idFront: 'ID Card (Front)',
+    warning: 'Please make sure you have the identity document you used in this registration with you during the airport security check.',
+    delete: 'Delete',
   },
   nav: {
     back    : '← Back',

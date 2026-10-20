@@ -131,6 +131,11 @@ consent: {
     required      : 'Bu belge zorunludur.',
     passportRequired: 'Yabancı uyruklu ziyaretçiler için pasaport yüklemesi zorunludur.',
     idRequired    : 'Kimlik ön yüzü yüklemesi zorunludur.',
+        passport: 'Pasaport',
+    id: 'Kimlik',
+    idFront: 'Kimlik Ön Yüz',
+    warning: 'Lütfen giriş işlemlerinde kullandığınız kimlik belgesini havalimanı güvenlik kontrolü sırasında yanınızda bulundurduğunuzdan emin olun.',
+    delete: 'Sil',
   },
   nav: {
     back    : '← Geri',

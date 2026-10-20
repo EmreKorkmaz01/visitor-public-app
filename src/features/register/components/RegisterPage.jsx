@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import { Toaster, toast } from 'react-hot-toast'
-
+import { useTranslation, useLang } from '../../../i18n/useTranslation'
 import { useTranslation } from '../../../i18n/useTranslation'
 import Header from '../../../components/layout/Header'
 import StepBar from '../../../components/layout/StepBar'
@@ -20,6 +20,7 @@ import ItemsStep from './ItemsStep'
 export default function RegisterPage() {
   const { token } = useParams()
   const { t } = useTranslation()
+   const { setLang } = useLang()
   const validateDocRef = useRef(null)
 
   const [tokenState, setTokenState] = useState('loading')
@@ -57,7 +58,12 @@ export default function RegisterPage() {
           setTokenState('invalid')
           return
         }
-
+         if (result.emailLanguage === 'EN') {
+          setLang('en')
+          setPersonalForm('nationality', 'FOREIGN')
+        } else {
+          setLang('tr')
+        }
         setVisitInfo(result)
         prefill(result)
         setTokenState('valid')

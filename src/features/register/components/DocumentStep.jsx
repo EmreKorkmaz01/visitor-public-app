@@ -7,14 +7,14 @@ export default function DocumentStep({ token, nationality, onValidate }) {
   const { t } = useTranslation()
   const isForeign = nationality === 'FOREIGN'
 
-  const DOC_TYPES = isForeign
+   const DOC_TYPES = isForeign
     ? [
-        { key: 'PASSPORT', label: 'Pasaport', required: true },
-        { key: 'ID_FRONT', label: 'Kimlik', required: false },
+        { key: 'PASSPORT', label: t('documents.passport'), required: true },
+        { key: 'ID_FRONT', label: t('documents.id'), required: false },
       ]
     : [
-        { key: 'ID_FRONT', label: 'Kimlik Ön Yüz', required: true },
-        { key: 'PASSPORT', label: 'Pasaport', required: false },
+        { key: 'ID_FRONT', label: t('documents.idFront'), required: true },
+        { key: 'PASSPORT', label: t('documents.passport'), required: false },
       ]
 
   const [docs, setDocs] = useState({})
@@ -72,8 +72,8 @@ export default function DocumentStep({ token, nationality, onValidate }) {
         borderRadius: '8px', padding: '12px 14px', marginBottom: '16px',
         fontSize: '12px', color: '#7a6000', lineHeight: 1.6,
       }}>
-        ⚠️ Lütfen giriş işlemlerinde kullandığınız kimlik belgesini havalimanı güvenlik kontrolü sırasında yanınızda bulundurduğunuzdan emin olun.
-      </div>
+         {t('documents.warning')}
+          </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '12px' }}>
         {DOC_TYPES.map((doc) => (
@@ -158,7 +158,7 @@ export default function DocumentStep({ token, nationality, onValidate }) {
                   fontFamily: 'inherit',
                 }}
               >
-                Sil
+                                {t('documents.delete')}
               </button>
             )}
 
