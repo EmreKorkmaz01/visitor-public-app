@@ -3,7 +3,7 @@ import Card, { SectionTitle } from '../../../components/ui/Card'
 import Checkbox from '../../../components/ui/Checkbox'
 import Toggle from '../../../components/ui/Toggle'
 
-export default function ConsentStep({ form, onChange }) {
+export default function ConsentStep({ form, onChange, errors = {} }) {
   const { t } = useTranslation()
 
   return (
@@ -24,6 +24,11 @@ export default function ConsentStep({ form, onChange }) {
             onChange={(val) => onChange('kvkkAccepted', val)}
             label={t('consent.kvkkCheck')}
           />
+          {errors.kvkkAccepted && (
+            <p style={{ fontSize: '11px', color: '#C8102E', marginTop: '6px' }}>
+              {t('consent.checkRequired')}
+            </p>
+          )}
         </div>
       </div>
 
@@ -43,6 +48,11 @@ export default function ConsentStep({ form, onChange }) {
             onChange={(val) => onChange('isgAccepted', val)}
             label={t('consent.isgCheck')}
           />
+          {errors.isgAccepted && (
+            <p style={{ fontSize: '11px', color: '#C8102E', marginTop: '6px' }}>
+              {t('consent.checkRequired')}
+            </p>
+          )}
         </div>
       </div>
 

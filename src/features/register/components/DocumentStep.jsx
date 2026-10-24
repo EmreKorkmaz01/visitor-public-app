@@ -10,11 +10,9 @@ export default function DocumentStep({ token, nationality, onValidate }) {
    const DOC_TYPES = isForeign
     ? [
         { key: 'PASSPORT', label: t('documents.passport'), required: true },
-        { key: 'ID_FRONT', label: t('documents.id'), required: false },
       ]
     : [
-        { key: 'ID_FRONT', label: t('documents.idFront'), required: true },
-        { key: 'PASSPORT', label: t('documents.passport'), required: false },
+        { key: 'ID_FRONT', label: t('documents.idOrPassport'), required: true },
       ]
 
   const [docs, setDocs] = useState({})
@@ -75,7 +73,7 @@ export default function DocumentStep({ token, nationality, onValidate }) {
          {t('documents.warning')}
           </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '12px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: DOC_TYPES.length > 1 ? '1fr 1fr' : '1fr', gap: '12px', marginBottom: '12px' }}>
         {DOC_TYPES.map((doc) => (
           <div key={doc.key}>
             <div

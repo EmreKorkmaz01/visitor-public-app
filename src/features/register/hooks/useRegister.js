@@ -19,6 +19,7 @@ export default function useRegister(token, skipVideo = false, showItems = true) 
     isgAccepted : false,
     saveProfile : false,
   })
+  const [consentErrors, setConsentErrors] = useState({})
 
   const [personalForm, setPersonalForm] = useState({
     firstName      : '',
@@ -151,9 +152,14 @@ const validatePersonal = () => {
       // Step 5: Aydınlatma Metni
       } else if (step === 5) {
         if (!consentForm.kvkkAccepted || !consentForm.isgAccepted) {
+          setConsentErrors({
+            kvkkAccepted: !consentForm.kvkkAccepted,
+            isgAccepted : !consentForm.isgAccepted,
+          })
           setError(t('consent.bothRequired'))
           return
         }
+        setConsentErrors({})
         await saveConsentStep({ token, ...consentForm })
         if (skipVideo) {
           await completeRegistration(token)
@@ -188,7 +194,11 @@ const validatePersonal = () => {
     loading,
     error,
     consentForm,
-    setConsentForm : (field, val) => setConsentForm((p) => ({ ...p, [field]: val })),
+    consentErrors,
+    setConsentForm : (field, val) => {
+      setConsentErrors((p) => ({ ...p, [field]: false }))
+      setConsentForm((p) => ({ ...p, [field]: val }))
+    },
     personalForm,
     setPersonalForm: (field, val) => setPersonalForm((p) => ({ ...p, [field]: val })),
     vehicleForm,

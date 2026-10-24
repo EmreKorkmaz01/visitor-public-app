@@ -32,7 +32,7 @@ export default function RegisterPage() {
 
     const {
     step, loading, error,
-    consentForm, setConsentForm,
+    consentForm, setConsentForm, consentErrors,
     personalForm, setPersonalForm,
     vehicleForm, setVehicleForm,
     equipmentItems, consumableItems, setItems,
@@ -161,7 +161,9 @@ const isDone = step === 7
                   <h1 style={{ fontSize: '24px', fontWeight: 700, color: '#212121', marginBottom: '4px' }}>
                     {t('greeting.title')},{' '}
                     {visitInfo?.firstName && (
-                      <span style={{ color: '#C8102E' }}>{visitInfo.firstName}</span>
+                      <span style={{ color: '#C8102E' }}>
+                        {[visitInfo.firstName, visitInfo.lastName].filter(Boolean).join(' ')}
+                      </span>
                     )}{' '}
                     👋
                   </h1>
@@ -197,7 +199,7 @@ const isDone = step === 7
                 />
               )}
               {step === 5 && (
-                <ConsentStep form={consentForm} onChange={setConsentForm} />
+                <ConsentStep form={consentForm} onChange={setConsentForm} errors={consentErrors} />
               )}
               {step === 6 && !skipVideo && (
                 <VideoStep onComplete={nextStep} />

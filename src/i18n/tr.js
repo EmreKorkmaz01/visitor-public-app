@@ -65,6 +65,7 @@ consent: {
   saveProfile    : 'Bilgilerimi kaydet',
   saveProfileDesc: 'Bir sonraki ziyarette formu otomatik dolduralım',
   bothRequired   : 'Devam etmek için her iki onayı da vermeniz gerekmektedir.',
+  checkRequired  : 'Devam etmek için bu kutuyu işaretlemeniz gerekmektedir.',
   
 },
   personal: {
@@ -118,6 +119,7 @@ consent: {
   documents: {
     title   : 'Belgeler',
     idFront : 'Kimlik Ön Yüz',
+    idOrPassport : 'Kimlik / Pasaport / Mavi Kart',
     idBack  : 'Kimlik Arka Yüz',
     passport: 'Pasaport',
     other   : 'Diğer Belge',

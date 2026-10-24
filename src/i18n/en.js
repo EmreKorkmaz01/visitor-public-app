@@ -63,6 +63,7 @@ export default {
   saveProfile    : 'Save my information',
   saveProfileDesc: 'Auto-fill the form on your next visit',
   bothRequired   : 'You must provide both consents to continue.',
+  checkRequired  : 'You must tick this box to continue.',
  
 },
 
@@ -117,6 +118,7 @@ export default {
   documents: {
     title   : 'Documents',
     idFront : 'ID Card Front',
+    idOrPassport : 'ID Card / Passport / Blue Card',
     idBack  : 'ID Card Back',
     passport: 'Passport',
     other   : 'Other Document',

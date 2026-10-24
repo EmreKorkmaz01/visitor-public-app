@@ -3,9 +3,34 @@ import Card, { SectionTitle } from '../../../components/ui/Card'
 import Input from '../../../components/ui/Input'
 import CountrySelect from '../../../components/ui/CountrySelect'
 import DateInput from '../../../components/ui/DateInput'
+// Telefonu +90 539 378 58 98 biçiminde gösterir; ülke kodu yoksa +90 varsayar.
+function formatPhone(value) {
+  if (!value) return ''
+  const hasPlus = String(value).trim().startsWith('+')
+  let digits = String(value).replace(/\D/g, '')
+  if (!digits) return ''
+
+  let countryCode = ''
+  if (digits.startsWith('90') && digits.length > 10) {
+    countryCode = '90'
+    digits = digits.slice(2)
+  } else if (hasPlus && digits.length > 10) {
+    countryCode = digits.slice(0, digits.length - 10)
+    digits = digits.slice(-10)
+  } else if (digits.startsWith('0')) {
+    digits = digits.slice(1)
+  }
+  if (!countryCode) countryCode = '90'
+
+  digits = digits.slice(0, 10)
+  const groups = [digits.slice(0, 3), digits.slice(3, 6), digits.slice(6, 8), digits.slice(8, 10)].filter(Boolean)
+  return `+${countryCode}${groups.length ? ' ' + groups.join(' ') : ''}`
+}
+
 export default function PersonalStep({ form, onChange, errors }) {
   const { t } = useTranslation()
   const handle = (field) => (e) => onChange(field, e.target.value)
+  const handlePhone = (e) => onChange('phone', formatPhone(e.target.value))
   const isForeign = form.nationality === 'FOREIGN'
 
   return (
@@ -112,8 +137,8 @@ export default function PersonalStep({ form, onChange, errors }) {
         <Input
           label={t('personal.phone')} required
           type="tel"
-          value={form.phone ?? ''}
-          onChange={handle('phone')}
+          value={formatPhone(form.phone)}
+          onChange={handlePhone}
           placeholder={t('personal.phonePh')}
           prefilled={!!form.phone}
           error={errors?.phone}
