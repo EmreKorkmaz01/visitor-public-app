@@ -80,9 +80,9 @@ export default function SuccessScreen({ visitDate, visitStart }) {
           }}
         >
           <div style={{ fontSize: '13px', color: '#212121', lineHeight: 1.7, marginBottom: '8px' }}>
-            {'Ziyaret saatinde refakatçinin sizi aşağıdaki konumda bulunan '}
-            <strong>Sabiha Gökçen A Kapısı</strong>
-            {"'nda karşılamasını bekleyiniz."}
+            {t('success.meetingBefore')}
+            <strong>{t('success.gateName')}</strong>
+            {t('success.meetingAfter')}
           </div>
 
           <div style={{ fontSize: '12px', color: '#9e9e9e', marginBottom: '14px' }}>{meta}</div>
@@ -107,7 +107,7 @@ export default function SuccessScreen({ visitDate, visitStart }) {
               textAlign: 'left',
             }}
           >
-            {'📍 Haritada Göster'}
+            {t('success.showOnMap')}
           </button>
         </div>
       )}

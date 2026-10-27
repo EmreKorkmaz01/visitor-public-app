@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useTranslation } from '../../../i18n/useTranslation'
 import Card, { SectionTitle } from '../../../components/ui/Card'
 import { saveDocument } from '../../../services/api'
 
-export default function DocumentStep({ token, nationality, onValidate }) {
+export default function DocumentStep({ token, nationality, carriedDocs, onValidate }) {
   const { t } = useTranslation()
   const isForeign = nationality === 'FOREIGN'
 
@@ -16,6 +16,18 @@ export default function DocumentStep({ token, nationality, onValidate }) {
       ]
 
   const [docs, setDocs] = useState({})
+
+  // Geçmiş ziyaretten devralınan belgeler yüklenmiş sayılır, kullanıcı isterse değiştirir
+  useEffect(() => {
+    if (!carriedDocs?.length) return
+    setDocs((prev) => {
+      const next = { ...prev }
+      carriedDocs.forEach((doc) => {
+        if (!next[doc.docType]) next[doc.docType] = { fileName: doc.fileName }
+      })
+      return next
+    })
+  }, [carriedDocs])
   const [uploading, setUploading] = useState({})
   const [errors, setErrors] = useState({})
 

@@ -12,8 +12,9 @@ import ConsentStep from './ConsentStep'
 import VideoStep from './VideoStep'
 import ErrorScreen from './ErrorScreen'
 import SuccessScreen from './SuccessScreen'
+import HistoryModal from './HistoryModal'
 
-import { validateToken, fetchPurposeConfigs } from '../../../services/api'
+import { validateToken, fetchPurposeConfigs, getVisitorHistory, applyVisitorHistory } from '../../../services/api'
 import useRegister from '../hooks/useRegister'
 import ItemsStep from './ItemsStep'
 export default function RegisterPage() {
@@ -25,7 +26,13 @@ export default function RegisterPage() {
   const [tokenState, setTokenState] = useState('loading')
   const [visitInfo, setVisitInfo] = useState(null)
   const [purposeLabel, setPurposeLabel] = useState(null)
-  const skipVideo = visitInfo?.status === 'DOCS_REJECTED'
+  const [history, setHistory] = useState(null)
+  const [historyOpen, setHistoryOpen] = useState(false)
+  const [historyApplying, setHistoryApplying] = useState(false)
+  const [carriedDocs, setCarriedDocs] = useState(null)
+  const [videoAlreadyWatched, setVideoAlreadyWatched] = useState(false)
+
+  const skipVideo = visitInfo?.status === 'DOCS_REJECTED' || videoAlreadyWatched
   const showItems = visitInfo?.requiresItems === true
 
 
@@ -67,6 +74,17 @@ export default function RegisterPage() {
         prefill(result)
         setTokenState('valid')
 
+        // Geçmiş kayıt teklifi kozmetiktir: alınamazsa akış normal ilerler.
+        try {
+          const past = await getVisitorHistory(token)
+          if (!cancelled && past?.hasHistory) {
+            setHistory(past)
+            setHistoryOpen(true)
+          }
+        } catch (historyError) {
+          console.warn('[register] visitor history failed:', historyError)
+        }
+
         // Ziyaret amacı etiketi kozmetiktir: alınamazsa ham kod gösterilir,
         // kayıt akışı bu yüzden kesilmez.
         try {
@@ -92,6 +110,33 @@ export default function RegisterPage() {
   useEffect(() => {
     if (error) toast.error(error)
   }, [error])
+
+  const handleHistoryAccept = async () => {
+    setHistoryApplying(true)
+    try {
+      await applyVisitorHistory(token)
+
+      const fields = ['tcNo', 'passportNo', 'birthDate', 'nationality', 'phone', 'company', 'firstName', 'lastName']
+      fields.forEach((field) => {
+        if (history?.[field]) setPersonalForm(field, history[field])
+      })
+      if (history?.licensePlate) setVehicleForm('plate', history.licensePlate)
+      if (history?.carBrand)     setVehicleForm('carBrand', history.carBrand)
+      if (history?.carModel)     setVehicleForm('carModel', history.carModel)
+      if (history?.carColor)     setVehicleForm('carColor', history.carColor)
+
+      setCarriedDocs(history?.documents ?? [])
+      if (history?.canSkipVideo) setVideoAlreadyWatched(true)
+
+      setHistoryOpen(false)
+      toast.success(t('history.applied'))
+    } catch (applyError) {
+      console.error('[register] applying history failed:', applyError)
+      toast.error(t('general.error'))
+    } finally {
+      setHistoryApplying(false)
+    }
+  }
 
   const handleNext = () => {
     if (step === 2 && validateDocRef.current) {
@@ -185,6 +230,7 @@ const isDone = step === 7
                 <DocumentStep
                   token={token}
                   nationality={personalForm.nationality}
+                  carriedDocs={carriedDocs}
                   onValidate={(fn) => { validateDocRef.current = fn }}
                 />
               )}
@@ -280,6 +326,14 @@ const isDone = step === 7
           )}
         </div>
       </main>
+
+      <HistoryModal
+        isOpen={historyOpen}
+        history={history}
+        applying={historyApplying}
+        onAccept={handleHistoryAccept}
+        onDecline={() => setHistoryOpen(false)}
+      />
 
       <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </div>

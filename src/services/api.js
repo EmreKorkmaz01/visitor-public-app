@@ -64,6 +64,16 @@ export const fetchPurposeConfigs = async () => {
   return res.data.value
 }
 
+export const getVisitorHistory = async (token) => {
+  const res = await api.get(`/getVisitorHistory(token='${token}')`)
+  return res.data
+}
+
+export const applyVisitorHistory = async (token) => {
+  const res = await api.post('/applyVisitorHistory', { token })
+  return res.data
+}
+
 export const saveVisitItems = async (token, items) => {
   const res = await api.post('/saveVisitItems', { token, items })
   return res.data.value

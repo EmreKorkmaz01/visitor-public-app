@@ -21,7 +21,7 @@ export default {
   },
   greeting: {
     title   : 'Merhaba',
-    subtitle: 'Redstar Aviation ziyaretiniz için birkaç bilginizi onaylamamız gerekiyor. Yaklaşık 3 dakika sürer.',
+    subtitle: 'Redstar Havacılık ziyaretiniz için birkaç bilginizi onaylamamız gerekiyor. Yaklaşık 3 dakika sürer.',
   },
   steps: {
     kvkk    : 'KVKK',
@@ -150,12 +150,25 @@ consent: {
     title  : 'Bu link geçersiz veya süresi dolmuş',
     desc   : 'Davet linki tek kullanımlıktır ve 7 gün geçerlidir.\nYeni bir davet almak için lütfen sizi davet eden kişiyle iletişime geçin.',
     contact: 'İletişim',
-    info   : 'Redstar Aviation Misafir Koordinasyonu\nredstar.izin@redstar.com.tr',
+    info   : 'Redstar Havacılık Misafir Koordinasyonu\nredstar.izin@redstar.com.tr',
   },
   success: {
     title  : 'Kaydınız tamamlandı',
-    desc   : 'Bilgileriniz Redstar Aviation ekibine iletildi.\nHEAŞ izin süreciniz başlatılacak, sonuç e-posta ile bildirilecektir.',
+    desc   : 'Bilgileriniz Redstar Havacılık ekibine iletildi.\nHEAŞ izin süreciniz başlatılacak, sonuç e-posta ile bildirilecektir.',
     gate   : 'Ziyaret tarihinde A Kapısı\'nda refakatçinizin sizi karşılamasını bekleyiniz.',
+    gateName      : 'Sabiha Gökçen A Kapısı',
+    meetingBefore : 'Ziyaret saatinde refakatçinin sizi aşağıdaki konumda bulunan ',
+    meetingAfter  : "'nda karşılamasını bekleyiniz.",
+    showOnMap     : '📍 Haritada Göster',
+  },
+  history: {
+    title    : 'Önceki ziyaretinizden bilgileriniz bulundu',
+    desc     : 'Daha önce tamamladığınız kayıttaki bilgileriniz ve belgeleriniz sistemde kayıtlı. Devralırsanız alanlar otomatik dolar; dilediğiniz bilgiyi yine değiştirebilir, belgeleri yeniden yükleyebilirsiniz.',
+    documents: 'Devralınacak belgeler',
+    accept   : 'Geçmişten devral',
+    applying : 'Devralınıyor...',
+    decline  : 'Yeniden doldurayım',
+    applied  : 'Bilgileriniz geçmiş ziyaretinizden dolduruldu.',
   },
   general: {
     error: 'Bir hata oluştu, lütfen tekrar deneyin.',
