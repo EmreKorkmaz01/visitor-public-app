@@ -8,6 +8,7 @@ export default {
     prompt  : 'Please watch the video to continue',
     continue: 'Continue →',
     cta     : 'Watch the video',
+    skippable: 'You watched this video recently; you may watch it again if you wish',
   },
   visit: {
     purposes: {

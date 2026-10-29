@@ -8,6 +8,7 @@ export default {
     prompt  : 'Devam etmek için videoyu izleyiniz',
     continue: 'Devam Et →',
     cta     : 'Videoyu izleyin',
+    skippable: 'Bu videoyu yakın zamanda izlediniz, dilerseniz tekrar izleyebilirsiniz',
   },
   visit: {
     purposes: {

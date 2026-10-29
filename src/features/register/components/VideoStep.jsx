@@ -1,19 +1,19 @@
 import { useState, useRef, useEffect } from 'react'
 import { useTranslation } from '../../../i18n/useTranslation'
 
-export default function VideoStep({ onComplete }) {
+export default function VideoStep({ onComplete, alreadyWatched = false }) {
   const { t, lang } = useTranslation()
   const videoRef = useRef(null)
-  const [watched, setWatched] = useState(false)
+  const [watched, setWatched] = useState(alreadyWatched)
   const [progress, setProgress] = useState(0)
 
   const videoSrc = lang === 'en' ? 'videos/safety-en.mp4' : 'videos/safety-tr.mp4'
 
   // Dil değişirse izleme sayacı sıfırlanır — yeni dildeki videonun da izlenmesi gerekir
   useEffect(() => {
-    setWatched(false)
+    setWatched(alreadyWatched)
     setProgress(0)
-  }, [videoSrc])
+  }, [videoSrc, alreadyWatched])
 
   const handleTimeUpdate = () => {
     const video = videoRef.current
@@ -51,7 +51,7 @@ export default function VideoStep({ onComplete }) {
         alignItems: 'center', justifyContent: 'space-between',
       }}>
         <div style={{ fontSize: '12px', color: '#9e9e9e' }}>
-          {watched ? t('video.watched') : t('video.prompt')}
+          {alreadyWatched ? t('video.skippable') : watched ? t('video.watched') : t('video.prompt')}
         </div>
         <button
           onClick={onComplete}

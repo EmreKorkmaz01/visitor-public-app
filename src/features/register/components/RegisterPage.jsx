@@ -32,7 +32,7 @@ export default function RegisterPage() {
   const [carriedDocs, setCarriedDocs] = useState(null)
   const [videoAlreadyWatched, setVideoAlreadyWatched] = useState(false)
 
-  const skipVideo = visitInfo?.status === 'DOCS_REJECTED' || videoAlreadyWatched
+  const skipVideo = visitInfo?.status === 'DOCS_REJECTED'
   const showItems = visitInfo?.requiresItems === true
 
 
@@ -248,7 +248,7 @@ const isDone = step === 7
                 <ConsentStep form={consentForm} onChange={setConsentForm} errors={consentErrors} />
               )}
               {step === 6 && !skipVideo && (
-                <VideoStep onComplete={nextStep} />
+                <VideoStep onComplete={nextStep} alreadyWatched={videoAlreadyWatched} />
               )}
               {isDone && (
                 <SuccessScreen
