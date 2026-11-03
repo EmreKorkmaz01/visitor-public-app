@@ -1,9 +1,30 @@
 import { useTranslation } from '../../../i18n/useTranslation'
 
-export default function SuccessScreen({ visitDate, visitStart }) {
+// Lokasyona göre buluşma noktası ve harita linki
+const LOCATIONS = {
+  SAW: {
+    mapUrl: 'https://maps.app.goo.gl/BjrV7vxdRYrH5Jqu8',
+    tr: 'Sabiha Gökçen A Kapısı',
+    en: 'Sabiha Gökçen Airport Gate A',
+  },
+  AHL: {
+    mapUrl: 'https://maps.app.goo.gl/C29fK6mLK6mj7KPF8',
+    tr: 'Atatürk Havalimanı',
+    en: 'Atatürk Havalimanı',
+  },
+  TPOTC: {
+    mapUrl: 'https://maps.app.goo.gl/kFBYZu22ir6i9nct5',
+    tr: 'TP-OTC Filyos',
+    en: 'TP-OTC Filyos',
+  },
+}
+
+export default function SuccessScreen({ visitDate, visitStart, location }) {
   const { t, lang } = useTranslation()
 
-  const MAP_URL = 'https://maps.app.goo.gl/BjrV7vxdRYrH5Jqu8'
+  const place = LOCATIONS[location] ?? LOCATIONS.SAW
+  const MAP_URL = place.mapUrl
+  const placeName = lang === 'en' ? place.en : place.tr
 
   const formatDate = (dateStr) => {
     if (!dateStr) return null
@@ -81,7 +102,7 @@ export default function SuccessScreen({ visitDate, visitStart }) {
         >
           <div style={{ fontSize: '13px', color: '#212121', lineHeight: 1.7, marginBottom: '8px' }}>
             {t('success.meetingBefore')}
-            <strong>{t('success.gateName')}</strong>
+            <strong>{placeName}</strong>
             {t('success.meetingAfter')}
           </div>
 

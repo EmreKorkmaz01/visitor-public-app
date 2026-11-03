@@ -254,6 +254,7 @@ const isDone = step === 7
                 <SuccessScreen
                   visitDate={visitInfo?.visitDate}
                   visitStart={visitInfo?.visitStart}
+                  location={visitInfo?.location}
                 />
               )}
 

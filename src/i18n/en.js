@@ -154,7 +154,7 @@ export default {
   },
   success: {
     title  : 'Registration complete',
-    desc   : 'Your information has been submitted to the Redstar Aviation team.\nYour HEAŞ permit process will be initiated and the result will be notified by email.',
+    desc   : 'Your information has been submitted to the Redstar Aviation team.\nYour airport entry permit process will be initiated and the result will be notified by email.',
     gate   : 'On your visit date, please wait at Gate A for your escort to meet you.',
     gateName      : 'Sabiha Gökçen Gate A',
     meetingBefore : 'At your visit time, please wait for your escort to meet you at ',

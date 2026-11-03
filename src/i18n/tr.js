@@ -155,7 +155,7 @@ consent: {
   },
   success: {
     title  : 'Kaydınız tamamlandı',
-    desc   : 'Bilgileriniz Redstar Havacılık ekibine iletildi.\nHEAŞ izin süreciniz başlatılacak, sonuç e-posta ile bildirilecektir.',
+    desc   : 'Bilgileriniz Redstar Havacılık ekibine iletildi.\nHavalimanı giriş izin süreciniz başlatılacak, sonuç e-posta ile bildirilecektir.',
     gate   : 'Ziyaret tarihinde A Kapısı\'nda refakatçinizin sizi karşılamasını bekleyiniz.',
     gateName      : 'Sabiha Gökçen A Kapısı',
     meetingBefore : 'Ziyaret saatinde refakatçinin sizi aşağıdaki konumda bulunan ',
