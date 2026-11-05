@@ -15,9 +15,10 @@ export default function useRegister(token, skipVideo = false, showItems = true) 
   const [equipmentItems, setEquipmentItems] = useState([])
   const [consumableItems, setConsumableItems] = useState([])
   const [consentForm, setConsentForm] = useState({
-    kvkkAccepted: false,
-    isgAccepted : false,
-    saveProfile : false,
+    kvkkAccepted         : false,
+    isgAccepted          : false,
+    isgCommitmentAccepted: false,
+    saveProfile          : false,
   })
   const [consentErrors, setConsentErrors] = useState({})
 
@@ -151,16 +152,24 @@ const validatePersonal = () => {
 
       // Step 5: Aydınlatma Metni
       } else if (step === 5) {
-        if (!consentForm.kvkkAccepted || !consentForm.isgAccepted) {
+        if (!consentForm.kvkkAccepted || !consentForm.isgAccepted || !consentForm.isgCommitmentAccepted) {
           setConsentErrors({
-            kvkkAccepted: !consentForm.kvkkAccepted,
-            isgAccepted : !consentForm.isgAccepted,
+            kvkkAccepted         : !consentForm.kvkkAccepted,
+            isgAccepted          : !consentForm.isgAccepted,
+            isgCommitmentAccepted: !consentForm.isgCommitmentAccepted,
           })
           setError(t('consent.bothRequired'))
           return
         }
         setConsentErrors({})
-        await saveConsentStep({ token, ...consentForm })
+        // CAP'in saveConsentStep action'ı yalnızca bu üç alanı tanıyor.
+        // Taahhütname onayı ayrı bir alan olarak saklanana kadar İSG onayına katlanıyor.
+        await saveConsentStep({
+          token,
+          kvkkAccepted: consentForm.kvkkAccepted,
+          isgAccepted : consentForm.isgAccepted && consentForm.isgCommitmentAccepted,
+          saveProfile : consentForm.saveProfile,
+        })
         if (skipVideo) {
           await completeRegistration(token)
           setStep(7)

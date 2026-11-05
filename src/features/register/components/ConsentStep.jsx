@@ -56,6 +56,30 @@ export default function ConsentStep({ form, onChange, errors = {} }) {
         </div>
       </div>
 
+      <SectionTitle>{t('consent.isgCommitmentTitle')}</SectionTitle>
+      <div style={{ border: '1px solid #e0e0e0', borderRadius: '8px', overflow: 'hidden', marginBottom: '16px' }}>
+        <div style={{
+          padding: '12px 14px', fontSize: '12px', color: '#757575',
+          lineHeight: 1.7, maxHeight: '160px', overflowY: 'auto',
+          background: '#fafafa', borderBottom: '1px solid #f0f0f0',
+          whiteSpace: 'pre-line',
+        }}>
+          {t('consent.isgCommitmentText')}
+        </div>
+        <div style={{ padding: '12px 14px', background: '#fff' }}>
+          <Checkbox
+            checked={form.isgCommitmentAccepted}
+            onChange={(val) => onChange('isgCommitmentAccepted', val)}
+            label={t('consent.isgCommitmentCheck')}
+          />
+          {errors.isgCommitmentAccepted && (
+            <p style={{ fontSize: '11px', color: '#C8102E', marginTop: '6px' }}>
+              {t('consent.checkRequired')}
+            </p>
+          )}
+        </div>
+      </div>
+
       <Toggle
         checked={form.saveProfile}
         onChange={(val) => onChange('saveProfile', val)}
