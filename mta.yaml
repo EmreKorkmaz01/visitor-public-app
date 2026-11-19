@@ -1,6 +1,6 @@
 _schema-version: "3.2"
 ID: redstar-vm-public-ui
-version: 1.0.25
+version: 1.0.26
 
 modules:
   - name: redstar-vm-public-ui-destination-content

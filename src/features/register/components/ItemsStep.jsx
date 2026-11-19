@@ -8,7 +8,7 @@ const inputStyle = {
   fontSize: '13px', fontFamily: 'inherit', color: '#212121', outline: 'none',
 }
 
-function ItemTable({ title, rows, onChange, onAdd, onRemove, t }) {
+function ItemTable({ title, rows, onChange, onAdd, onRemove, namePlaceholder, t }) {
   return (
     <div style={{
       background: '#fff', borderRadius: '12px', border: '1px solid #e0e0e0',
@@ -48,7 +48,7 @@ function ItemTable({ title, rows, onChange, onAdd, onRemove, t }) {
             <input
               value={row.itemName}
               onChange={(e) => onChange(row.id, 'itemName', e.target.value)}
-              placeholder={t('items.namePh')}
+              placeholder={namePlaceholder}
               style={inputStyle}
             />
             <input
@@ -160,6 +160,7 @@ export default function ItemsStep({ equipment, consumables, onChange }) {
 
       <ItemTable
         title={t('items.equipment')}
+        namePlaceholder={t('items.namePhEquipment')}
         rows={equipment}
         onChange={update('equipment')}
         onAdd={add('equipment')}
@@ -168,6 +169,7 @@ export default function ItemsStep({ equipment, consumables, onChange }) {
       />
       <ItemTable
         title={t('items.consumable')}
+        namePlaceholder={t('items.namePhConsumable')}
         rows={consumables}
         onChange={update('consumables')}
         onAdd={add('consumables')}
